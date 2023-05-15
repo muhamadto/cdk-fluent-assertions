@@ -1,0 +1,72 @@
+# Licensed to Muhammad Hamadto
+
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+
+#   See the NOTICE file distributed with this work for additional information regarding copyright ownership.
+
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+
+name: "CodeQL"
+
+on:
+  push:
+    branches: [ "*" ]
+  pull_request:
+    branches: [ "java17", "java11" ]
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'java' ]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+          cache: 'maven'
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+      - name: maven-settings-xml-action
+        uses: whelk-io/maven-settings-xml-action@v18
+        with:
+          repositories: >
+            [
+              {
+                "id": "spring-releases",
+                "name": "Spring Releases",
+                "url": "https://repo.spring.io/release"
+              }
+            ]
+          plugin_repositories: >
+            [
+              {
+                "id": "spring-releases",
+                "name": "Spring Releases",
+                "url": "https://repo.spring.io/release"
+              }
+            ]
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
