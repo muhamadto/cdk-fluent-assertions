@@ -1,5 +1,5 @@
 target/
-!spring-native-aws-lambda-function/.mvn/wrapper/maven-wrapper.jar
+!example-lambda-function/.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 

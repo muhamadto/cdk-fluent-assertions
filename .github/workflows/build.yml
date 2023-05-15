@@ -19,14 +19,12 @@ on:
   push:
     branches: [ "*" ]
   pull_request:
-    branches: [ "java17", "java11" ]
+    branches: [ "main" ]
     types: [ opened, synchronize, reopened ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -52,4 +50,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn --no-transfer-progress clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=muhamadto_spring-native-aws-lambda --settings settings-spring.xml
+        run: mvn --no-transfer-progress clean verify
