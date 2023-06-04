@@ -37,7 +37,7 @@ template.hasResourceProperties("AWS::IAM::Role", Match.objectEquals(
 ```
 
 ###  AWS CDK fluent testing library
-While working on a small [open-source project](https://github.com/muhamadto/cdk-fluent-assertions), I was varying a CDK stack containing some resources. I noticed that the tests written using the AWS framework were verbose and presented challenges in terms of readability and maintainability. In response, I decided to create a small library to make it easier to read, write and maintain tests.
+While working on a small [open-source project](https://github.com/muhamadto/cdk-fluent-assertions), I was maintaining a CDK stack containing some resources. I noticed that the tests written using the AWS framework were verbose and presented challenges in terms of readability and maintainability. In response, I decided to create a small library to make it easier to read, write and maintain tests.
 
 To illustrate, an equivalent representation to the aforementioned example can be found below: as follows"
 ```java
@@ -54,7 +54,7 @@ CDKStackAssert.assertThat(template)
 <dependency>
   <groupId>cloud.pianola</groupId>
   <artifactId>cdk-fluent-assertions</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <scope>test</scope>
 </dependency>
 ```
